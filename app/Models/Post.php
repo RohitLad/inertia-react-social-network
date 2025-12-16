@@ -3,10 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasUuids;
-    protected $fillable = ['title', 'body'];
+    use HasUuids, HasFactory;
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+    
+    protected $fillable = ['title', 'body', 'user_id'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
