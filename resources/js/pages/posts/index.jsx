@@ -1,7 +1,8 @@
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import AppLayout from "@/layouts/app-layout";
 import { Link } from "@inertiajs/react";
 
-export default function PostsShow({posts}){
+export default function PostsShow({ posts }) {
     return (
         <AppLayout>
             <div className="space-y-6">
@@ -10,29 +11,34 @@ export default function PostsShow({posts}){
                     <div className="text-center py-8">
                         <p className="text-gray-500">No posts found.</p>
                     </div>
-                ): (
-                    <article className="border-b border-gray-200 pb-6 last:border-b-0">
-                        {posts.map(
-                            (post)=>(
-                            <div key={post.id} className="mb-6">
-                                <h2 className="text-xl font-semibold">
-                                    <Link href={`/posts/${post.id}`}>
-                                        {post.title}
-                                    </Link>
-                                </h2>
-                                <p className="text-sm text-gray-400">By {post.user.name}</p>
-                                <p className="text-gray-600">
-                                    {post.body.substring(0, 200)}
-                                    {post.body.length > 200 && "..."}
-                                </p>
+                ) : (
+                    <div>
 
-                            </div>
+                        {posts.map(
+                            (post) => (
+                                <Card key={post.id} className="rounded-none border-b-0 last:border-b">
+                                    <CardHeader>
+                                        <CardTitle>
+                                            <Link href={`/posts/${post.id}`}>
+                                            {post.title}
+                                        </Link>
+                                        </CardTitle>
+                                        <CardDescription>
+                                            By {post.user.name}
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        {post.body.substring(0, 200)}
+                                        {post.body.length > 200 && "..."}
+                                    </CardContent>
+                                </Card>
                             )
                         )}
-                    </article>
-                )}  
+                    </div>
+
+                )}
             </div>
-                      
+
         </AppLayout>
     )
 }
