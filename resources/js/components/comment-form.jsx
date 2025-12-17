@@ -14,9 +14,9 @@ export default function CommentForm({postId}){
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <Form action="/comments" method="post" className="space-y-4">
+                <Form action="/comments" method="post" className="space-y-4" resetOnSuccess>
                     {
-                    ({errors})=>(
+                    ({errors, processing})=>(
                         <>
                             <Input 
                                 type="hidden"
@@ -30,7 +30,13 @@ export default function CommentForm({postId}){
                                     placeholder="Write your comment here..."
                                     aria-invalid={!!errors.body}
                                 />
-                                <Button>Add Comment</Button>
+                                <Button type="submit" disabled={processing}>
+                                    {processing?
+                                        "Adding Comment"
+                                        :
+                                        "Add Comment"
+                                    }
+                                    </Button>
                             </div>
                         </>
                     )

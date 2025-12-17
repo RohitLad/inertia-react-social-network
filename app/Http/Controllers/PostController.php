@@ -22,11 +22,17 @@ class PostController extends Controller
 
         $post = Post::with([
             'user',
-            'comments' => fn($query)=> $query->with('user')->latest()
+            //'comments' => fn($query)=> $query->with('user')->latest()
             ])->findOrFail($id);
 
         return Inertia::render('posts/show', [
-            'post' => $post
+            'post' => $post,
+            'comments' => Inertia::defer(
+                fn()=> $post->comments()
+                    ->with('user')
+                    ->latest()
+                    ->get()
+            )
         ]);
     }
 
