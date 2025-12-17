@@ -1,5 +1,4 @@
-const { cn } = require("@/lib/utils");
-
+import {cn} from "@/lib/utils";
 function InputError({message, className, ...props}){
     if(!message) return null;
     return <p className={
