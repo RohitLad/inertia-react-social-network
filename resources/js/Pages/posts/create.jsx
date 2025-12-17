@@ -3,6 +3,10 @@ import { Form } from "@inertiajs/react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { InputError } from "@/components/input-error";
 
 export default function PostsShow() {
     return (
@@ -21,24 +25,14 @@ export default function PostsShow() {
                                 ({ errors }) => (
                                     <>
                                         <div>
-                                            <label htmlFor="title" className="block mb-1">Title</label>
-                                            <input type="text" id="title" name="title" required className={
-                                                cn(
-                                                    "w-full border rounded px-3 py-2",
-                                                    errors.title && "border-red-500"
-                                                )
-                                            } />
-                                            {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
+                                            <Label htmlFor="title" className="block mb-1">Title</Label>
+                                            <Input type="text" id="title" name="title" required aria-invalid={!!errors.title}/>
+                                            <InputError message={errors.title}/>
                                         </div>
                                         <div>
-                                            <label htmlFor="body" className="block mb-1">Body</label>
-                                            <textarea id="body" name="body" required className={
-                                                cn(
-                                                    "w-full border rounded px-3 py-2",
-                                                    errors.body && "border-red-500"
-                                                )
-                                            } />
-                                            {errors.body && <p className="text-red-500 text-sm mt-1">{errors.body}</p>}
+                                            <Label htmlFor="body">Body</Label>
+                                            <Textarea id="body" name="body" required aria-invalid={!!errors.body}/>
+                                            <InputError message={errors.body}/>
                                         </div>
 
                                         <Button type="submit">
