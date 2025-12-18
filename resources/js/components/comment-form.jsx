@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 
-export default function CommentForm({postId}){
+export default function CommentForm({postId, onCommentAdded}){
     return (
         <Card className="rounded-none">
             <CardHeader>
@@ -14,7 +14,15 @@ export default function CommentForm({postId}){
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <Form action="/comments" method="post" className="space-y-4" resetOnSuccess>
+                <Form 
+                    action="/comments" 
+                    method="post" 
+                    className="space-y-4" 
+                    resetOnSuccess
+                    onSuccess={()=>onCommentAdded?.()}
+                    options={{
+                        only:["comments"]
+                    }}>
                     {
                     ({errors, processing})=>(
                         <>

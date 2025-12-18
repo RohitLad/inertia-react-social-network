@@ -1,4 +1,5 @@
 import AppHeader from "@/components/app-header";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function AppLayout({children}){
     return <div className="bg-gray-100 min-h-screen">
@@ -8,5 +9,6 @@ export default function AppLayout({children}){
                 {children}
             
         </main>
+        <Toaster/>
     </div>;
 }

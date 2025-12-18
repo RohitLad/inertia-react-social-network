@@ -3,8 +3,22 @@ import CommentForm from "@/components/comment-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import AppLayout from "@/layouts/app-layout";
 import { Deferred } from "@inertiajs/react";
+import { useRef } from "react";
+import { toast } from "sonner";
 
 export default function PostsShow({ post, comments }) {
+    const commentsSectionRef = useRef(null);
+    const handleCommentAdded = () => {
+        toast("Comment has been added", {
+            description: "Your comment is already visible"
+        })
+        setTimeout(() => {
+            commentsSectionRef.current?.scrollIntoView({
+                behaviour: "smooth",
+                block: "start"
+            })
+        }, 100);
+    }
     return (
         <AppLayout>
             <div className="space-y-6">
@@ -27,11 +41,11 @@ export default function PostsShow({ post, comments }) {
                     </CardContent>
                 </Card>
                 {/* Comment Form*/}
-                <CommentForm postId={post.id}/>
+                <CommentForm postId={post.id} onCommentAdded={handleCommentAdded} />
 
                 {/* Comments Section*/}
-                <div className="space-y-4">
-                    <Deferred 
+                <div className="space-y-4" ref={commentsSectionRef}>
+                    <Deferred
                         data="comments"
                         fallback={
                             <div className="text-center py-8">
@@ -39,22 +53,22 @@ export default function PostsShow({ post, comments }) {
                             </div>
                         }
                     >
-                        {comments && comments.length>0?(
-                        <div>
-                            {comments.map((comment)=>(
-                                <CommentCard 
-                                    key={comment.id}
-                                    comment={comment}
-                                />
-                            ))}
-                        </div>
-                    ):(
-                        <div className="text-center py-8">
-                            <p className="text-gray-500">No comments yet-</p>
-                        </div>
-                    )}
+                        {comments && comments.length > 0 ? (
+                            <div>
+                                {comments.map((comment) => (
+                                    <CommentCard
+                                        key={comment.id}
+                                        comment={comment}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="text-center py-8">
+                                <p className="text-gray-500">No comments yet-</p>
+                            </div>
+                        )}
                     </Deferred>
-                    
+
 
                 </div>
 
