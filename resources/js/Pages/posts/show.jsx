@@ -4,25 +4,42 @@ import CommentList from "@/components/comment-list";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import AppLayout from "@/layouts/app-layout";
 import { Deferred, usePoll } from "@inertiajs/react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { toast } from "sonner";
 
 export default function PostsShow({ post, comments }) {
     const commentsSectionRef = useRef(null);
-
-    usePoll(10000, {
+    const commentCountRef = useRef(comments?.length ?? 0);
+    const scrollToComments = () => commentsSectionRef.current?.scrollIntoView({
+        behaviour: "smooth",
+        block: "start"
+    });
+    usePoll(3000, {
         only: ["comments"],
-    })
+    });
+
+    useEffect(()=> {
+        // current length of comments
+        const newCommentCount = comments?.length ?? 0;
+        // we have stored prev length of comments
+        // compare and show toast if changes
+        if(newCommentCount > commentCountRef.current && commentCountRef.current>0){
+            toast("New comments available", {
+                duration: 6000,
+                action:{
+                    label: "View Comments",
+                    onClick: scrollToComments
+                }
+            })
+        }
+        // update prev length to curr length
+        commentCountRef.current = newCommentCount;
+    }, [comments]);
+
     const handleCommentAdded = () => {
         toast("Comment has been added", {
             description: "Your comment is already visible"
-        })
-        setTimeout(() => {
-            commentsSectionRef.current?.scrollIntoView({
-                behaviour: "smooth",
-                block: "start"
-            })
-        }, 100);
+        });
     }
     return (
         <AppLayout>
