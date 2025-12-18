@@ -1,13 +1,18 @@
 import CommentCard from "@/components/comment-card";
 import CommentForm from "@/components/comment-form";
+import CommentList from "@/components/comment-list";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import AppLayout from "@/layouts/app-layout";
-import { Deferred } from "@inertiajs/react";
+import { Deferred, usePoll } from "@inertiajs/react";
 import { useRef } from "react";
 import { toast } from "sonner";
 
 export default function PostsShow({ post, comments }) {
     const commentsSectionRef = useRef(null);
+
+    usePoll(10000, {
+        only: ["comments"],
+    })
     const handleCommentAdded = () => {
         toast("Comment has been added", {
             description: "Your comment is already visible"
@@ -48,25 +53,10 @@ export default function PostsShow({ post, comments }) {
                     <Deferred
                         data="comments"
                         fallback={
-                            <div className="text-center py-8">
-                                <p className="text-gray-500">Loading comments...</p>
-                            </div>
+                            <CommentList comments={comments??[]}/>
                         }
                     >
-                        {comments && comments.length > 0 ? (
-                            <div>
-                                {comments.map((comment) => (
-                                    <CommentCard
-                                        key={comment.id}
-                                        comment={comment}
-                                    />
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-8">
-                                <p className="text-gray-500">No comments yet-</p>
-                            </div>
-                        )}
+                        <CommentList comments={comments}/>
                     </Deferred>
 
 
