@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
+import { store } from "@/actions/App/Http/Controllers/CommentController";
 
 export default function CommentForm({postId, onCommentAdded}){
     return (
@@ -15,8 +16,7 @@ export default function CommentForm({postId, onCommentAdded}){
             </CardHeader>
             <CardContent>
                 <Form 
-                    action="/comments" 
-                    method="post" 
+                    action={store()}
                     className="space-y-4" 
                     resetOnSuccess
                     onSuccess={()=>onCommentAdded?.()}

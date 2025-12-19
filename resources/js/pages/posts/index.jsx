@@ -1,3 +1,4 @@
+import { show } from "@/actions/App/Http/Controllers/PostController";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import AppLayout from "@/layouts/app-layout";
 import { Link } from "@inertiajs/react";
@@ -19,7 +20,7 @@ export default function PostsShow({ posts }) {
                                 <Card key={post.id} className="rounded-none border-b-0 last:border-b">
                                     <CardHeader>
                                         <CardTitle>
-                                            <Link href={`/posts/${post.id}`}>
+                                            <Link href={show(post.id)}>
                                             {post.title}
                                         </Link>
                                         </CardTitle>
