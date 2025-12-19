@@ -24,3 +24,5 @@ Homestead.yaml
 Thumbs.db
 _ide_helper.php
 _ide_helper_models.php
+resources/js/actions
+resources/js/wayfinder
