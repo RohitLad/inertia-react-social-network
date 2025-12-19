@@ -10,6 +10,8 @@ import { toast } from "sonner";
 export default function PostsShow({ post, comments }) {
     const commentsSectionRef = useRef(null);
     const commentCountRef = useRef(comments?.length ?? 0);
+    const iAMWritingComment = useRef(false);
+
     const scrollToComments = () => commentsSectionRef.current?.scrollIntoView({
         behaviour: "smooth",
         block: "start"
@@ -23,7 +25,10 @@ export default function PostsShow({ post, comments }) {
         const newCommentCount = comments?.length ?? 0;
         // we have stored prev length of comments
         // compare and show toast if changes
-        if(newCommentCount > commentCountRef.current && commentCountRef.current>0){
+        if(newCommentCount > commentCountRef.current && 
+            commentCountRef.current>0 &&
+            !iAMWritingComment.current
+        ){
             toast("New comments available", {
                 duration: 6000,
                 action:{
@@ -34,9 +39,11 @@ export default function PostsShow({ post, comments }) {
         }
         // update prev length to curr length
         commentCountRef.current = newCommentCount;
+        iAMWritingComment.current = false;
     }, [comments]);
 
     const handleCommentAdded = () => {
+        iAMWritingComment.current = true;
         toast("Comment has been added", {
             description: "Your comment is already visible"
         });
