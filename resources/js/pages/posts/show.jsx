@@ -77,7 +77,7 @@ export default function PostsShow({ post, comments }) {
                     <Deferred
                         data="comments"
                         fallback={
-                            <CommentList comments={comments??[]}/>
+                            <CommentList comments={comments}/>
                         }
                     >
                         <CommentList comments={comments}/>

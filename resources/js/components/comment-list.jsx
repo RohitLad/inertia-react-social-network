@@ -1,7 +1,13 @@
 import CommentCard from "./comment-card";
+import LoadingCard from "./loading-card";
 
 export default function CommentList({comments}){
-    if(!comments || comments.length === 0){
+
+    if(comments === undefined){
+        return <LoadingCard message="Loading comments..."/>
+    }
+
+    if(comments.length === 0){
         return(
             <div className="text-center py-8">
                 <p className="text-gray-500">No comments yet.</p>
