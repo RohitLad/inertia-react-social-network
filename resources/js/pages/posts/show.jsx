@@ -1,13 +1,13 @@
-import CommentCard from "@/components/comment-card";
 import CommentForm from "@/components/comment-form";
 import CommentList from "@/components/comment-list";
+import LikeButton from "@/components/like-button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import AppLayout from "@/layouts/app-layout";
 import { Deferred, usePoll } from "@inertiajs/react";
 import { useRef, useEffect } from "react";
 import { toast } from "sonner";
 
-export default function PostsShow({ post, comments }) {
+export default function PostsShow({ post, comments, likes }) {
     const commentsSectionRef = useRef(null);
     const commentCountRef = useRef(comments?.length ?? 0);
     const iAMWritingComment = useRef(false);
@@ -17,7 +17,7 @@ export default function PostsShow({ post, comments }) {
         block: "start"
     });
     usePoll(3000, {
-        only: ["comments"],
+        only: ["comments", "likes"],
     });
 
     useEffect(()=> {
@@ -61,12 +61,26 @@ export default function PostsShow({ post, comments }) {
                             By {post.user?.name} on {" "} {new Date(post.created_at).toLocaleDateString()}
                         </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="space-y-4">
                         <p
                             className="text-gray-700 whitespace-pre-wrap"
                         >
                             {post.body}
                         </p>
+                        <Deferred data={["likes"]} fallback={
+                            <LikeButton 
+                                postId={post.id} 
+                                count={likes?.count} 
+                                liked={likes?.user_has_liked}
+                                isLoading={true}
+                            />     
+                        }>
+                            <LikeButton 
+                                postId={post.id} 
+                                count={likes?.count} 
+                                liked={likes?.user_has_liked}
+                            />
+                        </Deferred>
                     </CardContent>
                 </Card>
                 {/* Comment Form*/}

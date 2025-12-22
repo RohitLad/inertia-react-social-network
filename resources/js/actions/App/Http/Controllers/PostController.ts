@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\PostController::create
-* @see app/Http/Controllers/PostController.php:39
+* @see app/Http/Controllers/PostController.php:48
 * @route '/posts/create'
 */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\PostController::create
-* @see app/Http/Controllers/PostController.php:39
+* @see app/Http/Controllers/PostController.php:48
 * @route '/posts/create'
 */
 create.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PostController::create
-* @see app/Http/Controllers/PostController.php:39
+* @see app/Http/Controllers/PostController.php:48
 * @route '/posts/create'
 */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\PostController::create
-* @see app/Http/Controllers/PostController.php:39
+* @see app/Http/Controllers/PostController.php:48
 * @route '/posts/create'
 */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -151,7 +151,7 @@ show.head = (args: { id: string | number } | [id: string | number ] | string | n
 
 /**
 * @see \App\Http\Controllers\PostController::store
-* @see app/Http/Controllers/PostController.php:44
+* @see app/Http/Controllers/PostController.php:53
 * @route '/posts'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -166,7 +166,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\PostController::store
-* @see app/Http/Controllers/PostController.php:44
+* @see app/Http/Controllers/PostController.php:53
 * @route '/posts'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -175,7 +175,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PostController::store
-* @see app/Http/Controllers/PostController.php:44
+* @see app/Http/Controllers/PostController.php:53
 * @route '/posts'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
