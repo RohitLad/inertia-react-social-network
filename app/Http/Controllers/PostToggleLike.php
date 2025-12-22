@@ -19,8 +19,8 @@ class PostToggleLike extends Controller
         $existingLike = $post->likes()->where([
             'ip_address' => $ip,
             'user_agent' => $userAgent
-        ]);
-
+        ])->first();
+        
         if ($existingLike){
             $existingLike->delete();
         } else{

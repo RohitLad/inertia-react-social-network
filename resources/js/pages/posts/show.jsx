@@ -67,13 +67,13 @@ export default function PostsShow({ post, comments, likes }) {
                         >
                             {post.body}
                         </p>
-                        <Deferred data={["likes"]} fallback={
+                        <Deferred data="likes" fallback={
                             <LikeButton 
-                                postId={post.id} 
-                                count={likes?.count} 
+                                postId={post.id}
+                                count={likes?.count}
                                 liked={likes?.user_has_liked}
-                                isLoading={true}
-                            />     
+                                //isLoading={!likes}
+                            />
                         }>
                             <LikeButton 
                                 postId={post.id} 
